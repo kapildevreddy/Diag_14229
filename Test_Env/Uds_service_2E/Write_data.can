@@ -1,0 +1,48 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+
+dword glbHandle = 0;
+long glbValue;
+char buffer[64];
+int nvm_r_cnt=0;
+long NVM_DID[10];
+long NVM_DID_Value[10];
+int i,j;
+}
+
+
+MainTest()
+{
+  glbHandle = OpenFileRead ("D:/Configuration_ECU/NVM/Nvm_data.txt",0);
+  
+  while ( fileGetString(buffer,elcount(buffer),glbHandle)!=0 ) {
+   //  write ("Data %s.",buffer);
+      glbValue = atol (buffer);
+    // write ("Value %x",glbValue);
+    if(nvm_r_cnt%2 ==0 )
+      {
+      NVM_DID[i++] = glbValue;
+      }
+      else 
+      {
+      NVM_DID_Value[j++] = glbValue;
+      }
+      nvm_r_cnt++;
+  };
+  for (i=0;i<3;i++)
+  {
+    if (NVM_DID[i] ==0x010c)
+    {
+    write ("Data %x.", NVM_DID[i]);
+    write ("value %d.", NVM_DID_Value[i]);
+    }
+  }
+fileClose (glbHandle);
+  
+}
