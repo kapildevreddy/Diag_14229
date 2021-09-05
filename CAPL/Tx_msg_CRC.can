@@ -1,0 +1,62 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+ message 0x57E BRK_msg; //message declaration
+ msTimer tmr_BRK_msg; // timer for BRK
+ byte cnt =0;
+ byte temp;
+}
+
+on timer tmr_BRK_msg
+{
+  BRK_MSG_def();
+  setTimer(tmr_BRK_msg,200);
+}
+
+void BRK_MSG_def()
+{
+  BRK_msg.dlc = 8; //lenth
+  if(cnt<8)
+  {
+  BRK_msg.byte(0)=cnt;
+  BRK_msg.byte(1)=temp;
+  BRK_msg.byte(2)=0x00;
+  BRK_msg.byte(3)=0x00;
+  BRK_msg.byte(4)=0x00;
+  BRK_msg.byte(5)=0x00;
+  BRK_msg.byte(6)=0x00;
+  BRK_msg.byte(7)=0x00;
+  }
+  else
+  {
+    cnt =0;
+  BRK_msg.byte(0)=cnt;
+  BRK_msg.byte(1)=temp;
+  BRK_msg.byte(2)=0x00;
+  BRK_msg.byte(3)=0x00;
+  BRK_msg.byte(4)=0x00;
+  BRK_msg.byte(5)=0x00;
+  BRK_msg.byte(6)=0x00;
+  BRK_msg.byte(7)=0x00;
+  }
+  cnt++;
+  BRK_msg.byte(7)=BRK_msg.byte(0)+BRK_msg.byte(1)+BRK_msg.byte(2)+BRK_msg.byte(3)+BRK_msg.byte(4)+
+                  BRK_msg.byte(5)+BRK_msg.byte(6);
+  output(BRK_msg);
+  
+}
+
+ON sysvar_update value::value1
+{
+  temp = @value::value1;
+}
+ 
+on start
+{
+  setTimer(tmr_BRK_msg,500);
+}
