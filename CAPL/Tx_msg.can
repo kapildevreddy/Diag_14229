@@ -1,0 +1,35 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+ message 0x200 BRK_msg; //message declaration
+ msTimer tmr_BRK_msg; // timer for BRK
+}
+
+
+on timer tmr_BRK_msg
+{
+  BRK_MSG_def();
+  setTimer(tmr_BRK_msg,1000);
+}
+
+void BRK_MSG_def()
+{
+  BRK_msg.dlc = 4; //lenth
+  BRK_msg.byte(0)=0x00; //data
+  BRK_msg.byte(1)=0x00;
+  BRK_msg.byte(2)=0x00;
+  BRK_msg.byte(3)=0x00;
+  output(BRK_msg);
+  
+}
+
+ 
+on start
+{
+  setTimer(tmr_BRK_msg,0);
+}
