@@ -1,0 +1,1196 @@
+/*@!Encoding:1252*/
+includes
+{
+  //#define service10 0x10;
+  
+}
+
+variables
+{
+  message 0x200 Diag_Req;
+  message 0x201 Diag_Resp;
+  message 0x101 Tx_message1;
+  message 0x102 Tx_message2;
+  msTimer t_message1;
+  msTimer t_message2;
+  word Message_cycle_time1=100;
+  word Message_cycle_time2=200;
+  msTimer tNeg_resp;  //security unlock time
+  msTimer P2_server;
+  msTimer P2_cancel_Timer;
+  msTimer TMR0;
+  msTimer FC_timer;
+  byte Filter_DTC_buffer[10][4]; //global buffer for DTC data storage
+  byte nxt_cnt=0;
+  byte nxt_dtc=0;
+  byte Rmn_bytes=0;
+  byte frm=0;
+  long Dlc_size=0;
+  byte Active_session = 1;
+  byte Security_L1_Access = 0;
+  word DID;
+  byte brk_pos;
+  byte Flow_control_flag=0;// flow control flag
+  byte FC_timer_cntrl_cont=0;
+  ///////////////Speed//////////////
+  long speed =5; // speed
+  ///////////voltage////////////////
+  byte trishold=0;
+  ///////////////////////////
+  word Response_P2_serverTime =0x0032;
+  word Response_P2_str_Time = 0x01f4;
+  byte service_10 = 0x10;
+  long seed;
+  byte Invalid_key_cnt=0;
+  byte sequence_flag=0;
+  enum subfun_27
+  {
+    ser_27_sub_seedreq =0x01,
+    ser_27_sub_seedkey =0x02
+  };
+  enum subfun_10
+  {
+   ser_10_sub_default  =0x01,
+   ser_10_sub_program  =0x02,
+   ser_10_sub_extended =0x03
+    };
+  enum subfun_11
+  {
+   ser_11_hardReset   =0x01,
+   ser_11_keyOffOnReset  =0x02,
+   ser_11_softReset  =0x03
+    };
+  
+  enum ret_fun
+  {
+    E_NOT_OK,
+    E_OK
+  };
+
+  ////////////////////////////
+  byte service_11 = 0x11;
+  byte service_14 = 0x14;
+  byte service_19 = 0x19;
+  byte service_22 = 0x22;
+  byte service_27 = 0x27;
+  byte service_28 = 0x28;
+  byte service_31 = 0x31;
+  byte service_3E = 0x3E; 
+  byte low_voltage_mask =0x00;
+  msTimer DTC_Monitor; //DTC monitor 
+  byte DTC_Array[3][4]={{0x11,0x22,0x11,0x00},//low voltage
+                        {0x11,0x22,0x22,0x00},//high voltage
+                        {0x11,0x22,0x33,0x00} //vehicle speed
+  };
+}
+
+void f_Def_message1()
+{
+  byte i;
+  Tx_message1.dlc =8;
+//  for(i=0;i<8;i++)
+//  Tx_message1.byte(i)=0x00;
+  output(Tx_message1);
+}
+void f_Def_message2()
+{
+  byte i;
+  Tx_message2.dlc =8;
+//  for(i=0;i<8;i++)
+//  Tx_message2.byte(i)=0x00;
+  output(Tx_message2);
+}
+
+void cancel_timer()
+{
+  Active_session = 1;
+}
+void Diag_Resp_reset()
+{
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x00;
+  Diag_Resp.byte(1)= 0x00;
+  Diag_Resp.byte(2)= 0x00;
+  Diag_Resp.byte(3)= 0x00;
+  Diag_Resp.byte(4)= 0x00;
+  Diag_Resp.byte(5)= 0x00;
+  Diag_Resp.byte(6)= 0x00;
+  Diag_Resp.byte(7)= 0x00;
+}
+void service_10_pos(byte sub_fun_10)// 10 service
+{
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x06;
+  Diag_Resp.byte(1)= 0x50;
+  Diag_Resp.byte(2)= sub_fun_10;
+  Diag_Resp.byte(3)= (Response_P2_serverTime & 0xFF00)>>8;
+  Diag_Resp.byte(4)= (Response_P2_serverTime &0x00FF);
+  Diag_Resp.byte(5)= (Response_P2_str_Time & 0xFF00)>>8;
+  Diag_Resp.byte(6)= (Response_P2_str_Time & 0x00FF);
+  Active_session = sub_fun_10;
+  output(Diag_Resp);
+  setTimer(P2_cancel_Timer,5000);
+  Security_L1_Access=0; //reset security access while session change
+}
+void service_11_pos(byte subfun_11)// 11 service
+{
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x51;
+  Diag_Resp.byte(2)= subfun_11;
+  Diag_Resp.byte(3)= 0x00;//Powerdown time[00-FE] Not confugured yet
+  output(Diag_Resp);
+}
+void service_28_pos(byte sub_fun)
+{
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x68;
+  if(sub_fun==0x00)
+  {
+    Diag_Resp.byte(2)= sub_fun;
+  }
+  else if(sub_fun==0x01)
+  {
+    Diag_Resp.byte(2)= sub_fun;
+  }
+  else if(sub_fun==0x02)
+  {
+    Diag_Resp.byte(2)= sub_fun;
+  }
+  else if(sub_fun==0x03)
+  {
+    Diag_Resp.byte(2)= sub_fun;
+  }
+  else
+  {
+  }
+   output(Diag_Resp);
+}
+void service_3E_pos()// 3E service
+{
+  Diag_Resp.dlc =0x03;
+  Diag_Resp.byte(0)= 0x02;
+  Diag_Resp.byte(1)= 0x7E;
+  Diag_Resp.byte(2)= 0x00;
+  output(Diag_Resp);
+ setTimer(P2_cancel_Timer,5000);
+}
+byte service_27_pos(byte sub1,byte sub2,byte sub3,byte sub4)
+{
+  long SEED;
+  byte ret;
+  SEED = (sub1 &0x000000ff);
+  SEED |= ((sub2<<8) &0x0000ff00);
+  SEED |= ((sub3<<16) & 0x00ff0000);
+  SEED |= ((sub4<<24)& 0xff000000);
+  if(SEED==seed)
+  {
+    ret= E_OK;
+  }
+  else
+  {
+    ret= E_NOT_OK;
+    Invalid_key_cnt++;
+  }
+  return ret;
+}
+byte service_22_pos(word DID)
+{
+  switch(DID)
+  {
+    case 0xf186:
+    {
+      Diag_Resp.dlc=5;
+      Diag_Resp.byte(0)=0x04;
+      Diag_Resp.byte(1)=0x62;
+      Diag_Resp.byte(2)=((DID>>8) & 0xFF);
+      Diag_Resp.byte(3)=DID & 0x00FF;
+      Diag_Resp.byte(4)=Active_session;
+      output(Diag_Resp);
+      break;
+    }
+    case 0x010A:
+    {
+     Diag_Resp.dlc=5; 
+      Diag_Resp.byte(0)=0x04;
+      Diag_Resp.byte(1)=0x62;
+      Diag_Resp.byte(2)=((DID>>8) & 0xFF);
+      Diag_Resp.byte(3)=DID & 0x00FF;
+      Diag_Resp.byte(4)= @Voltage::V;
+      output(Diag_Resp);
+      break;
+    }
+        case 0x010B:
+    {
+      word w_speed;
+      w_speed = $Speed;
+     Diag_Resp.dlc=6; 
+      Diag_Resp.byte(0)=0x05;
+      Diag_Resp.byte(1)=0x62;
+      Diag_Resp.byte(2)=((DID>>8) & 0xFF);
+      Diag_Resp.byte(3)=DID & 0x00FF;
+      Diag_Resp.byte(4)= (w_speed >> 8);
+      Diag_Resp.byte(5)= w_speed;
+      output(Diag_Resp);
+      break;
+    }
+  }
+  return 0;
+}
+byte service_27_pos(byte sub_fun) //SecurityAccess (27 hex) service 
+{
+  long mask =0xff0e0000;
+  long random_value;
+  byte seed_1,seed_2,seed_3,seed_4;
+  if(sub_fun==0x01)
+  {
+  random_value= random(500000);
+  seed = (random_value |mask) ;
+    write("seed %x",seed);
+  Diag_Resp.dlc=7;
+  Diag_Resp.byte(0)=0x06;
+  Diag_Resp.byte(1)=0x67;
+  Diag_Resp.byte(2)=0x01;
+  if(Security_L1_Access!=1)
+  {
+   seed_1=seed;
+   seed_2=seed>>8;
+   seed_3=seed>>16;
+   seed_4=seed>>24;
+  Diag_Resp.byte(3)=seed_1;
+  Diag_Resp.byte(4)=seed_2;
+  Diag_Resp.byte(5)=seed_3;
+  Diag_Resp.byte(6)=seed_4;
+  sequence_flag=1; //sequence flag to avoid sequence error in next level
+ // Invalid_key_cnt =0;
+  }
+  else // if Security already accessed 
+  {
+   seed = 0x00;
+   seed_1=seed;
+   seed_2=seed>>8;
+   seed_3=seed>>16;
+   seed_4=seed>>24;
+  Diag_Resp.byte(3)=seed_1;
+  Diag_Resp.byte(4)=seed_2;
+  Diag_Resp.byte(5)=seed_3;
+  Diag_Resp.byte(6)=seed_4;
+  }
+  output(Diag_Resp);
+  }
+  else if(sub_fun==0x02)
+  {
+    Diag_Resp.dlc=3;
+    Diag_Resp.byte(0)=0x02;
+    Diag_Resp.byte(1)=0x67;
+    Diag_Resp.byte(2)=0x02;
+    sequence_flag=0; //sequence flag to avoid sequence error in next level
+    output(Diag_Resp);
+    Security_L1_Access=1; //Set Security access true
+    Invalid_key_cnt =0;
+  }
+  return 0;
+}
+void service_19_pos(byte sub_fun,byte S_Mask)// 19 service 
+{
+  byte Dtc_bytes=0;
+  byte Dtc_count=0;
+  byte DTC_FAIL_CNT=0;
+  byte SW_Cfg_Mask=0x01;
+ // byte Filter_DTC_buffer[10][4];
+  byte FTB_cnt=0;
+  byte CC_frames=0;//consecutive frames
+ // byte Rmn_bytes=0;//remaining bytes
+//  byte frm=0;
+  byte byt=0;
+//  byte nxt_cnt=0;
+//  byte nxt_dtc=0;
+//  long Dlc_size=0;
+ // Flow_control_flag=0;
+  for(Dtc_count=0;Dtc_count<3;Dtc_count++)
+  {
+   // write("DTC count %d",Dtc_count);
+   if((DTC_Array[Dtc_count][3]&S_Mask) !=0)
+     {
+        DTC_FAIL_CNT++; //increesing DTC count
+        for(Dtc_bytes=0;Dtc_bytes<4;Dtc_bytes++)
+        {
+          Filter_DTC_buffer[FTB_cnt][Dtc_bytes]= DTC_Array[Dtc_count][Dtc_bytes];//filtered DTC with mask
+          write("DTC %x",Filter_DTC_buffer[FTB_cnt][Dtc_bytes]);
+        }
+        FTB_cnt++;//increese filter buffer
+    }
+  }
+  FTB_cnt=0;//reset filter buffer 
+  switch(sub_fun)
+  {
+    // write("service call");
+    case 0x01:
+    {
+     Diag_Resp.dlc =0x08;
+     Diag_Resp.byte(0)=0x03;
+     Diag_Resp.byte(1)=0x59;
+     Diag_Resp.byte(2)= sub_fun;
+     Diag_Resp.byte(3)=SW_Cfg_Mask;
+     Diag_Resp.byte(4)=DTC_FAIL_CNT;
+     output(Diag_Resp);
+    }
+    break;
+    case 0x02:
+    {
+      //byte 0 = pos_res+ sub_fun+ SW_Cfg_Mask +DTC_FAIL_CNT *4 
+      Dlc_size= 3+ DTC_FAIL_CNT*4;
+     // write("DLC count %d",Dlc_size);
+      if(Dlc_size<8)
+      {
+         Diag_Resp.dlc =0x08;
+         Diag_Resp.byte(0)=Dlc_size;
+         Diag_Resp.byte(1)=0x59;
+         Diag_Resp.byte(2)= sub_fun;
+         Diag_Resp.byte(3)=SW_Cfg_Mask;
+        for(Dtc_count=0;Dtc_count<(DTC_FAIL_CNT*4);Dtc_count++)
+        {
+          Diag_Resp.byte(4+Dtc_count)=Filter_DTC_buffer[0][Dtc_count];
+         // write("DTC %d",Diag_Resp.byte(4+Dtc_count));
+        }
+      output(Diag_Resp);
+              for(Dtc_count=0;Dtc_count<(DTC_FAIL_CNT*4);Dtc_count++)
+        {
+          Diag_Resp.byte(4+Dtc_count)= 0;
+         // write("DTC %d",Diag_Resp.byte(4+Dtc_count));
+        }
+      }
+      else
+      {
+        //Tp message
+        Diag_Resp.dlc =0x08;
+        Diag_Resp.byte(0)=0x10;
+        Diag_Resp.byte(1)=Dlc_size;
+        Diag_Resp.byte(2)=0x59;
+        Diag_Resp.byte(3)=sub_fun;
+        Diag_Resp.byte(4)= SW_Cfg_Mask;
+        Diag_Resp.byte(5)= Filter_DTC_buffer[0][0];
+        Diag_Resp.byte(6)= Filter_DTC_buffer[0][1];
+        Diag_Resp.byte(7)= Filter_DTC_buffer[0][2];
+        output(Diag_Resp);
+        //check control flag 
+        if(verify_control_flag()==E_OK)//wait for 0x30 request
+        {
+        CC_frames = (Dlc_size-6)/7;
+        Rmn_bytes = (Dlc_size-6)%7;
+        write("CC frames %d",CC_frames);
+        write("Rmn_bytes %d",Rmn_bytes);
+        nxt_cnt=3;
+        nxt_dtc=0;
+        //waiting flow control flag //TBD
+        if(CC_frames>0)
+        {
+          write("Frame bytes");
+          for(frm=0;frm<CC_frames;frm++)
+          {
+            write("frme %d",frm);
+            Diag_Resp.dlc =0x08;
+            Diag_Resp.byte(0)=0x21+frm;
+            for(byt=1;byt<8;byt++)
+            {
+              Diag_Resp.byte(byt)= 0;//cleaning CAN buffer
+            }
+            //frames loading with current DTC buffer
+            for(byt=1;byt<8;byt++)
+            {
+              if(nxt_cnt>3)
+              {
+                 nxt_cnt=0;
+                 nxt_dtc++;
+              }
+              Diag_Resp.byte(byt)= Filter_DTC_buffer[nxt_dtc][nxt_cnt];
+              write("Frame bytes[%d] =[%d][%d]= %x",byt,nxt_dtc,nxt_cnt,Filter_DTC_buffer[nxt_dtc][nxt_cnt]);
+              nxt_cnt++;
+            }
+            output(Diag_Resp);
+          }
+        }
+        if(Rmn_bytes>0) //more than 2 frames (start 0x22,..)
+        {
+          write("Remaining bytes");
+          setTimer(FC_timer,5000);
+//          Diag_Resp.dlc =0x08;
+//          Diag_Resp.byte(0)=0x21+frm;
+//          for(byt=1;byt<8;byt++)
+//           {
+//            Diag_Resp.byte(byt)= 0;//cleaning CAN buffer
+//           }
+//          // frame loading with current DTC buffer
+//          for(byt=1;byt<Rmn_bytes+1;byt++)
+//          {
+//            if(nxt_cnt>3)
+//            {
+//               nxt_cnt=0;
+//               nxt_dtc++;
+//            }
+//            Diag_Resp.byte(byt)= Filter_DTC_buffer[nxt_dtc][nxt_cnt];
+//            write("Rmn Frame bytes[%d] =[%d][%d]= %x",byt,nxt_dtc,nxt_cnt,Filter_DTC_buffer[nxt_dtc][nxt_cnt]);
+//            nxt_cnt++;
+//            
+//          }
+//          output(Diag_Resp);
+        }
+      }//control flag condition end
+      } 
+    }
+    break;
+  }
+  DTC_FAIL_CNT=0;//reset to control mask
+}
+void CC_frame()
+{
+  byte byt=0;
+       write("Flow control frame received");
+          Diag_Resp.dlc =0x08;
+          Diag_Resp.byte(0)=0x21+frm;
+          for(byt=1;byt<8;byt++)
+           {
+            Diag_Resp.byte(byt)= 0;//cleaning CAN buffer
+           }
+          // frame loading with current DTC buffer
+          write("Loading current DTC");
+          for(byt=1;byt<Rmn_bytes+1;byt++)
+          {
+          write("forloop");
+   
+            if(nxt_cnt>3)
+            {
+           write("forloop nxt_cnt");
+              
+               nxt_cnt=0;
+               nxt_dtc++;
+            }
+            Diag_Resp.byte(byt)= Filter_DTC_buffer[nxt_dtc][nxt_cnt];
+            write("Rmn Frame bytes[%d] =[%d][%d]= %x",byt,nxt_dtc,nxt_cnt,Filter_DTC_buffer[nxt_dtc][nxt_cnt]);
+            nxt_cnt++;
+            
+          }
+          output(Diag_Resp);
+}
+
+void Len_Neg(byte service)
+{
+  init_data();
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x7f;
+  Diag_Resp.byte(2)= service;
+  Diag_Resp.byte(3)= 0x13;
+  output(Diag_Resp);
+}
+void Request_outofrange_Neg(byte service)
+{
+  init_data();
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x7f;
+  Diag_Resp.byte(2)= service;
+  Diag_Resp.byte(3)= 0x31;
+  output(Diag_Resp);
+}
+void service_Not_supported_Neg(byte service)
+{
+  Diag_Resp.dlc =0x04;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x7f;
+  Diag_Resp.byte(2)= service;
+  Diag_Resp.byte(3)= 0x11;
+  output(Diag_Resp);
+}
+void service_Not_supported_Active_session_Neg(byte service)
+{
+  Diag_Resp.dlc =0x04;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x7f;
+  Diag_Resp.byte(2)= service;
+  Diag_Resp.byte(3)= 0x7F;
+  output(Diag_Resp);
+}
+void SubFun_Neg(byte service)
+{
+  init_data();
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x7f;
+  Diag_Resp.byte(2)= service;
+  Diag_Resp.byte(3)= 0x12;
+  output(Diag_Resp);
+}
+void Condition_Notcorrect_Neg(byte service)
+{
+  init_data();
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x7f;
+  Diag_Resp.byte(2)= service;
+  Diag_Resp.byte(3)= 0x22;
+  output(Diag_Resp);
+}
+void Security_Neg_Resp(byte service,byte NRC)
+{
+  init_data();
+  Diag_Resp.dlc =0x08;
+  Diag_Resp.byte(0)= 0x03;
+  Diag_Resp.byte(1)= 0x7f;
+  Diag_Resp.byte(2)= service;
+  Diag_Resp.byte(3)= NRC;//invalid key
+  sequence_flag = 0;
+  output(Diag_Resp);
+}
+void init_data()
+{
+ byte i;
+  for(i=0;i<8;i++)
+    Diag_Resp.byte(i)= 0x0;
+}
+byte Active_session_check_for_SID(byte service)
+{
+   byte Ret;
+  Switch(service)
+  {
+   case 0x11:
+    {
+      if (Active_session==(0x01))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+    case 0x22:
+     {
+      if (Active_session==(0x01 || 0x02 || 0x03))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+    case 0x27:
+     {
+      if (Active_session==(0x03))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+    case 0x2E:
+     {
+      if (Active_session==(0x03))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+  }
+  return Ret;
+}
+
+byte Active_session_check_for_Subfunction(byte service, byte subfuction)
+{
+   byte Ret;
+  Switch(service)
+  {
+   case 0x11:
+    {
+      if (Active_session==(0x01))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+    case 0x22:
+     {
+      if (Active_session==(0x01 || 0x02 || 0x03))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+    case 0x27:
+     {
+      if (Active_session==(0x03))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+    case 0x2E:
+     {
+      if (Active_session==(0x03))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+    }
+  }
+  return Ret;
+}
+
+byte Service_subfun_check(byte service,byte sub)
+{
+  byte Ret;
+  Switch(service)
+  {
+    case 0x10:
+    {
+      if((sub==0x01)||(sub==0x02)||(sub==0x03))//implememtation for 10 service sub function
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+      break;
+    }
+    case 0x19:
+    {
+      if((sub==0x01)||(sub==0x02))//implememtation for 19 service sub function
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+        Ret = E_NOT_OK;
+      }
+    }
+  }
+  return Ret;
+}
+byte Identifier_check(byte service,word ID)
+{
+  byte Ret;
+  Switch(service)
+  {
+    case 0x22:
+    {
+      if((ID==0xf186)||(ID==0x1012)||(ID==0x1122))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+      break;
+    }
+        case 0x2E:
+    {
+      if((ID==0xf186)||(ID==0x1012)||(ID==0x1122))
+      {
+        Ret=E_OK;
+      }
+      else
+      {
+       Ret = E_NOT_OK;
+      }
+      break;
+    }
+  }
+  return Ret;
+}
+
+byte Service_lenth(byte service,byte len,byte sub)
+{
+  byte Ret;
+ // write("Fishy 1");
+  switch(service)
+  {
+    case 0x10:
+    {
+      if(len==2)
+         Ret = E_OK;
+      else
+         Ret = E_NOT_OK;
+      break;
+    }
+    case 0x11:
+    {
+      if(len==2)
+         Ret = E_OK;
+      else
+         Ret = E_NOT_OK;
+      break;
+    }
+
+    case 0x27:
+    {
+      if((len==2)&&((sub==1)||(sub==3)||(sub==5)))
+      {
+          Ret = E_OK;
+      }
+      else if((len== 6)&& ((sub==2)||(sub==4)||(sub==6)))
+      {
+        Ret = E_OK;
+      }
+      else
+      {
+         Ret = E_NOT_OK;
+      }
+      break;
+    }
+    case 0x22:
+    {
+      if(len==3)
+         Ret = E_OK;
+      else
+        Ret = E_NOT_OK;
+      break;
+    }
+    case 0x3E:
+    {
+       if(len== 2)
+      {
+         Ret = E_OK;
+      }
+      else
+      {
+         Ret = E_NOT_OK;
+      }
+    }
+     break; 
+    case 0x19:
+    {
+      if(len==3)
+      {
+         Ret = E_OK;
+      }
+      else
+      {
+        Ret = E_NOT_OK;
+      }
+    }
+    break;
+  } 
+ // write(" Ret %d\n",Ret);
+  return Ret;
+  
+}
+on message 0x200
+{
+  Diag_Resp_reset();//reset_response_bytes
+  if(this.byte(1) == service_10) //$10
+  {
+    if($Speed<speed)
+    {
+      if(E_OK == Service_lenth(this.byte(1),this.byte(0),this.byte(2)))
+      {
+        switch(this.byte(2))
+         {
+           case ser_10_sub_default:
+            {
+             service_10_pos(ser_10_sub_default);
+              break;
+            }
+            case ser_10_sub_program:
+            {
+              service_10_pos(ser_10_sub_program);
+              break;
+            }
+            case ser_10_sub_extended:
+            {
+              service_10_pos(ser_10_sub_extended);
+              break;
+            }
+            default :
+            {
+              SubFun_Neg(service_10); //Sub function not supported NRC
+            }
+          } // end switch
+       } //end if length
+    else
+    {
+      Len_Neg(service_10); //Incurrect messge length NRC 
+    }
+    } // end if condition
+    else
+    {
+     Condition_Notcorrect_Neg(service_10); // Condition not correct NRC
+    }
+  }
+  else if(this.byte(1) == service_11)
+  {
+    if($Speed<speed)
+    {
+      if(Security_L1_Access==1)
+      {
+        if(E_OK == Service_lenth(this.byte(1),this.byte(0),this.byte(2)))
+         {
+          switch(this.byte(2))
+           {
+            case  ser_11_hardReset:
+             {
+              service_11_pos(ser_11_hardReset);
+              break;
+             }
+            case ser_11_keyOffOnReset:
+             {
+              service_11_pos(ser_11_keyOffOnReset);
+              break;
+             }
+            case ser_11_softReset:
+            {
+            service_11_pos(ser_11_softReset);
+             break;
+            }
+            default:
+            {
+             SubFun_Neg(service_11);
+            }
+          } //end switch
+        }//end if length
+    else
+    {
+      Len_Neg(service_11);
+    }
+   }//End if security access
+    else
+      {
+        Security_Neg_Resp(service_11,0x33);//security access deneyed
+      }
+    }// end if condition check
+    else
+    {
+     Condition_Notcorrect_Neg(service_11); // Condition not correct NRC 
+    }
+  }
+  else if(this.byte(1) == service_14)
+  {
+  }
+  else if(this.byte(1) == service_19)
+  {
+     if(E_OK == Service_lenth(this.byte(1),this.byte(0),this.byte(2)))
+    {
+      if(E_OK ==Service_subfun_check(this.byte(1),this.byte(2)))
+      {
+        service_19_pos(this.byte(2),this.byte(3));//calling 19 service positive resp
+      }
+      else
+      {
+        SubFun_Neg(service_19);
+      }
+      
+    }
+    else
+    {
+      Len_Neg(service_19);
+    }
+  }
+  else if(this.byte(1) == service_22) //$22
+  {
+    if(E_OK == Service_lenth(this.byte(1),this.byte(0),this.byte(2)))
+    {
+     DID = (this.byte(3))&0x00ff;
+     DID|= (this.byte(2)<<8)&0xff00;
+      if (E_OK == Identifier_check(service_22,DID))
+      {
+      write("DID %x",DID);
+      service_22_pos(DID);
+      }
+      else
+      {
+        Request_outofrange_Neg(service_22);
+      }
+    }
+    else
+    {
+      Len_Neg(service_22);
+    }
+  }
+  else if(this.byte(1) == service_27) //$27
+  {
+    if(E_OK==Active_session_check_for_SID(service_27))
+     {
+      if(E_OK == Service_lenth(this.byte(1),this.byte(0),this.byte(2)))
+        {
+           if($Speed<speed)  // 
+          {
+         switch(this.byte(2))
+         {
+           case ser_27_sub_seedreq:
+           {
+            service_27_pos(ser_27_sub_seedreq);
+            break;
+           }
+         case ser_27_sub_seedkey:
+         {
+
+            if((E_OK == service_27_pos(this.byte(3),this.byte(4),this.byte(5),this.byte(6)))&&(sequence_flag==1))
+            {
+             service_27_pos(ser_27_sub_seedkey);
+            }
+            else if(sequence_flag==1)
+            {
+              if(Invalid_key_cnt<4)
+              {
+               Security_Neg_Resp(service_27,0x35);
+              }
+              else if(Invalid_key_cnt==4)
+              {
+               Security_Neg_Resp(service_27,0x36);
+              }
+              else if(Invalid_key_cnt>4)
+              {
+               Invalid_key_cnt=4;
+               setTimer(tNeg_resp,5000);
+               Security_Neg_Resp(service_27,0x37);
+              }
+            }
+           else
+            {
+              Security_Neg_Resp(service_27,0x24);
+            }
+            break;
+          }
+      default :
+      {
+        SubFun_Neg(service_27);
+      }
+    } //switch close
+   } // speed condition end  
+   else
+    {
+     Condition_Notcorrect_Neg(service_27);
+    }
+   } // lenth condition end
+      else
+      {
+        Len_Neg(service_27);
+      }
+    } // Active condition end
+  else
+  {
+    service_Not_supported_Active_session_Neg(service_27);
+  }
+  } // 27 service end
+  
+  
+  else if(this.byte(1)== service_28 ) //$28
+  {
+     if(E_OK == Service_lenth(this.byte(1),this.byte(0),this.byte(2)))
+    {
+      service_3E_pos();
+    }
+    else
+    {
+      Len_Neg(service_28);
+    }
+  }
+  else if(this.byte(1) == service_31) //$31
+  {
+  }
+  else if(this.byte(1)==service_3E) //$3E
+  {
+     if(E_OK == Service_lenth(this.byte(1),this.byte(0),this.byte(2)))
+        {
+          service_3E_pos();
+        }
+        else
+        {
+          Len_Neg(service_3E);
+        }
+  }
+  else if((this.byte(0)==0x30))
+  {
+    if(this.dlc ==8)
+    {
+      Flow_control_flag=1;
+    }
+  }
+  else 
+  {
+   service_Not_supported_Neg(this.byte(1)); //Service Not supported (NRC 11)
+  }
+}
+void f_com_init()
+{
+  setTimer(t_message1,0);
+  setTimer(t_message2,0);
+  setTimer(DTC_Monitor,0);
+}
+byte verify_control_flag()
+{
+  int l_var;
+ // for(l_var=0;l_var<10000;l_var++);
+  setTimer(FC_timer,500);
+  if(Flow_control_flag==1)
+    return 1;
+  else
+    return 0;
+}
+on start
+{
+  f_com_init();
+}
+on sysvar_update Voltage::V
+{
+  float volt;
+  volt=@Voltage::V;
+  write("Voltage %f",volt); //test
+  if(((trishold==0) &&(volt<=6))|| ( (trishold==0)&& (volt>=18)))
+  {
+    trishold = 1;
+  ILNodeControlStop("TST");
+    cancelTimer(t_message1);
+    cancelTimer(t_message2);
+  }
+  else if (((trishold==1) &&((volt>=7)&&(volt<=16)))|| (( (trishold==1)&& ((volt<=16)&&(volt>=7))))) // Threshold voltage
+  {
+    ILNodeControlStart("TST");
+    setTimer(t_message1,Message_cycle_time1);
+    setTimer(t_message2,Message_cycle_time1);
+    trishold = 0; // reset Threshold flag
+  }
+}
+//@@@@@@@@@@@@@@@@@@@@@@@@@@ Events @@@@@@@@@@@@@@@@@@@@@@@@@@//
+on signal Brake_Indicator
+{
+  if($Brake_Indicator==1)
+  {
+    $BC_Ind_lft =1;
+    $BC_Ind_rgt = 1;
+  }
+  else
+  {
+    $BC_Ind_lft =0;
+    $BC_Ind_rgt =0;
+  }
+}
+on sysvar Handbreak::Brk
+{
+  //Tx_message2.HandBrk_buzzer=3;
+  //$HandBrk_buzzer=3;
+  //$HandBreak_pos=1;
+   $HandBreak_pos= @Handbreak::Brk;
+   //write("Brk %d",ENGmsg.HandBreak_pos);
+  //brk_pos
+ if(($HandBreak_pos==1)||($HandBreak_pos==3))
+{
+   write("Brk %d",Tx_message2.HandBrk_buzzer);
+   Tx_message2.HandBrk_buzzer=1;
+//  setTimer(TMR0,3000);
+//  $HandBrk_buzzer=2;
+//  setTimer(TMR0,3000);
+//  $HandBrk_buzzer=1;
+//  setTimer(TMR0,3000);
+}
+else
+{
+  Tx_message2.HandBrk_buzzer=0;
+}
+}
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@ Timers @@@@@@@@@@@@@@@@@@@@@@@@@//
+ON timer tNeg_resp
+{
+  Invalid_key_cnt=1;
+}
+ON timer P2_cancel_Timer
+{
+  cancel_timer();
+}
+
+ON timer t_message1
+{
+  f_Def_message1();
+  setTimer(t_message1,Message_cycle_time1);
+}
+ON timer t_message2
+{
+  f_Def_message2();
+  setTimer(t_message2,Message_cycle_time1);
+}
+on timer TMR0
+{
+  $HandBrk_buzzer = 0;
+}
+on timer FC_timer
+{
+  //FC_timer_cntrl_cont++;
+  write("FC Timer calling");
+  if(Flow_control_flag==1)
+  {
+    CC_frame();
+    Flow_control_flag=0;
+    FC_timer_cntrl_cont=0;
+    write("FC Timer calling for flag1");
+    cancelTimer(FC_timer);
+  }
+//  else if(FC_timer_cntrl_cont<10)
+//  {
+//    write("FC Timer calling control cnt %d",FC_timer_cntrl_cont); 
+//    setTimer(FC_timer,500);
+//  }
+//  else
+//  {
+//    cancelTimer(FC_timer);
+//    FC_timer_cntrl_cont=0;
+//    write("FC Timer calling canceltimer"); 
+//    
+//  }
+}
+
+on timer DTC_Monitor
+{
+  //voltage monitor 18v
+  if(@Voltage::V>=18)
+  {
+    DTC_Array[1][3]= DTC_Array[1][3]|0x01;//set failure bit in status mask for high voltage DTC
+   // write("high voltage status mask %x",DTC_Array[1][3]); // test status mask
+  }
+  else
+  {
+     DTC_Array[1][3]= DTC_Array[1][3]&0xFE;//clear failure bit in status mask for high voltage DTC
+    // write("high voltage status mask %x",DTC_Array[1][3]); // test status mask
+  }
+  if(@Voltage::V<=6)
+  {
+    DTC_Array[0][3]= DTC_Array[0][3]|0x01;//set failure bit in status mask for Low voltage DTC
+   // write("Low voltage status mask %x",DTC_Array[0][3]);  // test sttus mask
+  }
+  else
+  {
+    DTC_Array[0][3]= DTC_Array[0][3]&0xFE; //clear failure bit in status mask for Low voltage DTC
+    // write("Low voltage status mask %x",DTC_Array[0][3]);  // test sttus mask
+  }
+  //voltage monitor 6v
+  
+  if($Speed>350)
+  {
+    DTC_Array[2][3]= DTC_Array[2][3]|0x01;
+  }
+  else
+  {
+    DTC_Array[2][3]= DTC_Array[2][3]&0xFE;
+  }
+  setTimer(DTC_Monitor,50); // monitor Status every 50ms
+}
