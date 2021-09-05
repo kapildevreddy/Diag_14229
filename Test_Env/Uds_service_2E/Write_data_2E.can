@@ -1,0 +1,41 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+
+dword glbHandle = 0;
+long glbValue;
+char buffer[64];
+int nvm_r_cnt=0;
+long NVM_DID[10];
+long NVM_DID_Value[10];
+int i,j;
+int Testvalue;
+}
+
+
+MainTest()
+{
+ // glbHandle = OpenFileWrite("D:/Configuration_ECU/NVM/Nvm_data.txt",1);
+  glbHandle = OpenFileWrite("D:/Configuration_ECU/NVM/NVM.txt",0);
+
+  if(glbHandle !=0)
+  {
+    Testvalue = 123;
+    snprintf (buffer,elcount(buffer)," %d \n",Testvalue);
+    filePutString (buffer, elcount(buffer),glbHandle);
+
+  }
+  else
+{
+write ("File 'Nvm_data.Txt' was not opened for write access.");
+}
+
+   
+fileClose (glbHandle);
+  
+}
