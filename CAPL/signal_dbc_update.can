@@ -1,0 +1,9 @@
+/*@!Encoding:1252*/
+on  key 'a'
+{
+  $ACC_Status = 1;
+}
+on  key 's'
+{
+  $ACC_Status = 0;
+}
