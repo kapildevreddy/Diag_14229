@@ -1,0 +1,53 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+ message 0x57E BRK_msg; //message declaration
+ message 0x300 lgt; 
+ msTimer tmr_BRK_msg; // timer for BRK
+ msTimer tmr_lgt; //timer lgt
+}
+on timer tmr_lgt
+{
+   lgt_def();
+   setTimer(tmr_lgt,500);
+}
+
+on timer tmr_BRK_msg
+{
+  BRK_MSG_def();
+  setTimer(tmr_BRK_msg,200);
+}
+
+void BRK_MSG_def()
+{
+  BRK_msg.dlc = 8; //lenth
+  BRK_msg.byte(0)=0x01; //data
+  BRK_msg.byte(1)=0x02;
+  BRK_msg.byte(2)=0x03;
+  BRK_msg.byte(3)=0x04;
+  BRK_msg.byte(4)=0x05;
+  BRK_msg.byte(5)=0x06;
+  BRK_msg.byte(6)=0x07;
+  BRK_msg.byte(7)=0x08;
+  output(BRK_msg);
+  
+}
+  void lgt_def()
+{
+  lgt.dlc=2;
+  lgt.byte(0)=0x01;
+  lgt.byte(1)=0x02;
+  output(lgt);
+}
+
+ 
+on start
+{
+  setTimer(tmr_BRK_msg,200);
+ setTimer(tmr_lgt,500);
+}
