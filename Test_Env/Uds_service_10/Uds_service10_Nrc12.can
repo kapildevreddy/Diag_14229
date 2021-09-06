@@ -1,0 +1,44 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "..\Include\Diag_message_declaration.cin"
+}
+
+variables
+{
+
+}
+void Service_request_10_data(byte sub)
+{
+ Diag_req.byte(0)= 0x02;
+ Diag_req.byte(1)= 0x10;
+ Diag_req.byte(2)= sub;
+ output(Diag_req);
+}
+
+
+
+testcase Uds_service_nrc12()
+{
+  Service_request_10_data(0x04);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x03)&& (Response[1]==0x7F)&&(Response[2]==0x10)&&(Response[3]==0x12))
+  {
+    testStepPass(""," Subfunction notsupported test pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3]);
+  }
+  else
+  {
+    testStepFail("","Subfunction notsupported  test fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+
+
+
+MainTest()
+{
+  Uds_service_nrc12();
+}
