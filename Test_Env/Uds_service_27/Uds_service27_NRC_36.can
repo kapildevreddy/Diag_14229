@@ -1,0 +1,257 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "..\Include\Diag_message_declaration.cin"
+}
+
+variables
+{
+    long SEED;
+  byte x;
+}
+
+void Clear_request()
+{
+  for(x=0;x<8;x++)
+  {
+    Diag_req.byte(x)=0;
+  }
+}
+void Diag_request()
+{
+Clear_request();
+Diag_req.byte(0)= 0x02;
+Diag_req.byte(1)=0x10;
+Diag_req.byte(2)=0x03;
+test_flag=1;
+output(Diag_req);
+testWaitForTimeout(100);
+vaidate_response(0x10,0x03);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x02;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x01;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  vaidate_response(0x27,0x01);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x06;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x02;
+  Diag_req.byte(3)=SEED;
+  Diag_req.byte(4)=SEED>>8;
+  Diag_req.byte(5)=SEED>>16;
+  Diag_req.byte(6)=SEED>>24;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x02;
+  Diag_req.byte(1)=0x10;
+  Diag_req.byte(2)=0x03;
+  test_flag=1;
+  output(Diag_req);
+  testWaitForTimeout(100);
+  vaidate_response(0x10,0x03);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x02;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x01;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  vaidate_response(0x27,0x01);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x06;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x02;
+  Diag_req.byte(3)=SEED;
+  Diag_req.byte(4)=SEED>>8;
+ // Diag_req.byte(5)=SEED>>16;
+  //Diag_req.byte(6)=SEED>>24;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+Clear_request(); 
+Diag_req.byte(0)= 0x02;
+Diag_req.byte(1)=0x10;
+Diag_req.byte(2)=0x03;
+test_flag=1;
+output(Diag_req);
+testWaitForTimeout(100);
+vaidate_response(0x10,0x03);
+ 
+  Clear_request();
+  Diag_req.byte(0)= 0x02;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x01;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  vaidate_response(0x27,0x01);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x06;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x02;
+  Diag_req.byte(3)=SEED;
+  Diag_req.byte(4)=SEED>>8;
+ // Diag_req.byte(5)=SEED>>16;
+  //Diag_req.byte(6)=SEED>>24;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+
+Clear_request();
+Diag_req.byte(0)= 0x02;
+Diag_req.byte(1)=0x10;
+Diag_req.byte(2)=0x03;
+test_flag=1;
+output(Diag_req);
+testWaitForTimeout(100);
+vaidate_response(0x10,0x03);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x02;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x01;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  vaidate_response(0x27,0x01);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x06;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x02;
+  Diag_req.byte(3)=SEED;
+  Diag_req.byte(4)=SEED>>8;
+  //Diag_req.byte(5)=SEED>>16;
+  //Diag_req.byte(6)=SEED>>24;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+Clear_request();  
+Diag_req.byte(0)= 0x02;
+Diag_req.byte(1)=0x10;
+Diag_req.byte(2)=0x03;
+test_flag=1;
+output(Diag_req);
+testWaitForTimeout(100);
+vaidate_response(0x10,0x03);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x02;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x01;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  vaidate_response(0x27,0x01);
+  
+  Clear_request();
+  Diag_req.byte(0)= 0x06;
+  Diag_req.byte(1)=0x27;
+  Diag_req.byte(2)=0x02;
+  Diag_req.byte(3)=SEED;
+  Diag_req.byte(4)=SEED>>8;
+ // Diag_req.byte(5)=SEED>>16;
+  //Diag_req.byte(6)=SEED>>24;
+  output(Diag_req);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  
+  vaidate_NRC_response(0x27,0x36);
+}
+
+void vaidate_response(byte service,byte subfun)
+{
+
+  if ((service == 0x10)&&(Response[2]==0x03))
+  {
+     if((Response[1]==0x50)&&(Response[2]==0x03))
+    {
+  
+      testStepPass("","Diag in Extended session");
+    }
+    else
+    {
+      testStepFail("","Diag session fail to move Extended session");
+    }
+  }
+    else if ((service == 0x10)&&(Response[2]==0x01))
+  {
+     if((Response[1]==0x50)&&(Response[2]==0x01))
+    {
+  
+      testStepPass("","Diag in default session");
+    }
+    else
+    {
+      testStepFail("","Diag session fail to move default session");
+    }
+  }
+  else if ((service== 0x27)&&(subfun== 0x01))
+  {
+    if((Response[1]==0x67)&&(Response[2]==subfun))
+    {
+        SEED = (Response[3] &0x000000ff);
+        SEED |= ((Response[4]<<8) &0x0000ff00);
+        SEED |= ((Response[5]<<16) & 0x00ff0000);
+        SEED |= ((Response[6]<<24)& 0xff000000);
+       // write("seed %x",SEED);
+      testStepPass("","requestSeed sent successfully ");
+    }
+        else
+    {
+      testStepFail("","requestSeed not sent successfully");
+    }
+  }
+    else if ((service== 0x27)&&(subfun== 0x02))
+  {
+        if((Response[1]==0x67)&&(Response[2]==subfun))
+    {
+      testStepPass("","security unlocked successfully  ");
+    }
+        else
+    {
+      testStepFail("","security unlock failed");
+    }
+    
+  }
+}
+
+void vaidate_NRC_response(byte service,byte Nrc)
+{
+  if(Nrc==0x36)
+  {
+    if ((Response[2]== service)&&((Response[3]== Nrc)))
+    {
+       testStepPass("","NRC 36 ");
+    }
+    else
+    {
+      testStepFail("","Invalid data");
+    }
+  }
+}
+
+testcase security_unlock()
+{
+Diag_request();
+}
+
+MainTest()
+{
+  security_unlock();
+}
