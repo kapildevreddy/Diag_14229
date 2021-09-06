@@ -1,0 +1,46 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "..\Include\Diag_message_declaration.cin"
+}
+
+variables
+{
+dword DID =0xffff;
+}
+void Service_request_outofrange_22()
+{
+ Diag_req.byte(0)= 0x03;
+ Diag_req.byte(1)= 0x22;
+ Diag_req.byte(2)= DID>>8;
+ Diag_req.byte(3)= DID;
+ output(Diag_req);
+
+}
+
+
+
+testcase Uds_service_nrc31()
+{
+  Service_request_outofrange_22();
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x03)&& (Response[1]==0x7F)&&(Response[2]==0x22)&&(Response[3]==0x31))
+  {
+    testStepPass(""," request outof range test pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3]);
+  }
+  else
+  {
+    testStepFail("","request outof range test fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+
+
+
+MainTest()
+{
+  Uds_service_nrc31();
+}
