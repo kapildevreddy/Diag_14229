@@ -1,0 +1,43 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "..\Include\Diag_message_declaration.cin"
+}
+
+variables
+{
+
+}
+void Service_request_10_data(byte sub)
+{
+ Diag_req.byte(0)= 0x02;
+ Diag_req.byte(1)= 0x10;
+ Diag_req.byte(2)= sub;
+ output(Diag_req);
+}
+
+
+testcase Uds_service10_default_session()
+{
+  Service_request_10_data(0x01);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x06)&& (Response[1]==0x50)&&(Response[2]==0x01)&&(Response[3]==0x00)&&(Response[4]==0x32)&&(Response[5]==0x01)&&(Response[6]==0xF4))
+  {
+    testStepPass("","Default session pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  else
+  {
+    testStepFail("","Default session fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+
+
+
+MainTest()
+{
+  Uds_service10_default_session();
+}
