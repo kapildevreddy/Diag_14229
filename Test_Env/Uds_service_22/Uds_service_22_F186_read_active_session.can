@@ -1,0 +1,113 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "..\Include\Diag_message_declaration.cin"
+}
+
+variables
+{
+dword DID =0xf186;
+}
+void Service_request_22_data()
+{
+ Diag_req.byte(0)= 0x03;
+ Diag_req.byte(1)= 0x22;
+ Diag_req.byte(2)= DID>>8;
+ Diag_req.byte(3)= DID;
+ output(Diag_req);
+}
+
+
+testcase Uds_service22_DID(byte session)
+{
+  Service_request_22_data();
+   test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x04)&& (Response[1]==0x62)&&(Response[2]==0xf1)&&(Response[3]==0x86)&&(Response[4]==session))
+  {
+    testStepPass(""," Active session %x response  %x %x %x %x %x ",Response[4],Response[0],Response[1],Response[2],Response[3],Response[4]);
+  }
+  else
+  {
+    testStepFail("","Unexpected response %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4]);
+  }
+  
+}
+
+void Service_request_10_data(byte sub)
+{
+ Diag_req.byte(0)= 0x02;
+ Diag_req.byte(1)= 0x10;
+ Diag_req.byte(2)= sub;
+ output(Diag_req);
+}
+
+
+testcase Uds_service10_default_session()
+{
+  Service_request_10_data(0x01);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x06)&& (Response[1]==0x50)&&(Response[2]==0x01)&&(Response[3]==0x00)&&(Response[4]==0x32)&&(Response[5]==0x01)&&(Response[6]==0xF4))
+  {
+    testStepPass("","Default session pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  else
+  {
+    testStepFail("","Default session fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+
+
+testcase Uds_service10_programming_session()
+{
+  Service_request_10_data(0x02);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x06)&& (Response[1]==0x50)&&(Response[2]==0x02)&&(Response[3]==0x00)&&(Response[4]==0x32)&&(Response[5]==0x01)&&(Response[6]==0xF4))
+  {
+    testStepPass("","programming session pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  else
+  {
+    testStepFail("","programming session fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+
+testcase Uds_service10_Extended_session()
+{
+  Service_request_10_data(0x03);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x06)&& (Response[1]==0x50)&&(Response[2]==0x03)&&(Response[3]==0x00)&&(Response[4]==0x32)&&(Response[5]==0x01)&&(Response[6]==0xF4))
+  {
+    testStepPass("","extended session pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  else
+  {
+    testStepFail("","extended session fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+
+
+
+
+MainTest()
+{
+  Uds_service10_Extended_session();
+  Uds_service22_DID(3);
+  
+  Uds_service10_programming_session();
+  Uds_service22_DID(2);
+ 
+  Uds_service10_default_session();
+  Uds_service22_DID(1);
+}
