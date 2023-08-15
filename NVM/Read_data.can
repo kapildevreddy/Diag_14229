@@ -1,0 +1,22 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+ char buffer[256]; 
+}
+MainTest()
+{
+  //set directory for reading
+  setFilePath("D:\\Automotive\\Configuration_ECU\\NVM",2);
+  writeProfileString("Parameter","0x102B","58","Datafile.ini");
+  //writeProfileString("Parameter","0x102A","56","Datafile.ini");
+ //getProFileString("Parameter","0x102B","Default String",buffer,elcount(buffer),"D:\\Automotive\\Configuration_ECU\\NVM/Datafile.ini");
+  //write("String: %s", buffer);
+
+  
+}
+

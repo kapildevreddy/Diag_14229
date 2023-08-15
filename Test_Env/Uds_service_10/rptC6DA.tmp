@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2021-07-11 16:12:26" timestamp="  36.960000" verdicts="2_basic">
+  <violation timestamp="  36.960000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2021-07-11 16:12:26" timestamp="  36.960000">
+    <violation timestamp="  36.960000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  36.970000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=10ms (max=10ms)</teststep>
+    <teststep timestamp="  37.070000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  37.070000" level="0" type="user" ident="" result="pass">conditionsNotCorrect test pass 3 7f 10 22 88d5c24 7007 34</teststep>
+    <verdict time="2021-07-11 16:12:26" timestamp="  37.070000" endtime="2021-07-11 16:12:26" endtimestamp="  37.070000" result="pass" />
+    <title>Uds_service_nrc22</title>
+  </testcase>
+  <verdict time="2021-07-11 16:12:26" timestamp="  37.070000" endtime="2021-07-11 16:12:26" endtimestamp="  37.070000" result="pass" />
+  <title>Test_NRC_22</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>kapil</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.LIN.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Configuration_ECU\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Test_NRC_22</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Configuration_ECU\Test_Env\Uds_service_10\Uds_service10_Nrc22.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2021-07-11, 16:11:34</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-Q1UTACG</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="22eda4a271851935dc6d863b4fe42718" version="1"-->

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2023-08-02 21:23:01" timestamp="  23.210000" verdicts="2_basic">
+  <violation timestamp="  23.210000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2023-08-02 21:23:01" timestamp="  23.210000">
+    <violation timestamp="  23.210000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  23.310000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  23.310000" level="0" type="user" ident="" result="pass">Default session pass 6 50 1 0 32 1 f4</teststep>
+    <verdict time="2023-08-02 21:23:01" timestamp="  23.310000" endtime="2023-08-02 21:23:01" endtimestamp="  23.310000" result="pass" />
+    <title>Uds_service10_default_session</title>
+  </testcase>
+  <testcase starttime="2023-08-02 21:23:01" timestamp="  23.310000">
+    <violation timestamp="  23.310000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  23.410000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  23.410000" level="0" type="user" ident="" result="pass"> securityAccessDenied test pass 3 7f 11 33 0 86ef4bc 70ff4bec</teststep>
+    <verdict time="2023-08-02 21:23:01" timestamp="  23.410000" endtime="2023-08-02 21:23:01" endtimestamp="  23.410000" result="pass" />
+    <title>Uds_service_nrc33</title>
+  </testcase>
+  <verdict time="2023-08-02 21:23:01" timestamp="  23.410000" endtime="2023-08-02 21:23:01" endtimestamp="  23.410000" result="pass" />
+  <title>Uds_service11_Nrc33</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>Lenovo</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.ISO11783.J1939.LIN.MOST.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Automotive\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Uds_service11_Nrc33</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Automotive\Configuration_ECU\Test_Env\uds_service_11\Uds_service11_Nrc33.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2023-08-01, 22:18:35</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-54LC03E</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module J1939TestServiceLibraryNL</name>
+      <description>J1939 Test Service Library for CANoe, Version 9.0.86, C:\Program Files\Vector CANoe 9.0\Exec32\J1939TestServiceLibraryNL.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="79b2a9ec3e2c53a02181f032296b7c31" version="1"-->

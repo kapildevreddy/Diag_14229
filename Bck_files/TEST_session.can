@@ -1,0 +1,121 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+ message 0x200 Req;
+ byte Resp_arr[8];
+ byte Response_flag = 0;
+}
+
+MainTest()
+{
+  Req_diag();
+  Security_L1_Access();
+}
+testcase Security_L1_Access()
+{
+  send_req_seed();
+  vaildate_seed_req();
+  send_req_Caluc_Key();
+  vaildate_Key_req();
+  //security key 
+}
+testcase Req_diag()
+{
+  send_req();
+  testWaitForTimeout(100);//waiting for 100 ms
+  vaildate();
+}
+void send_req_seed()
+{
+ Response_flag=1;
+ Req.dlc=8;
+ Req.byte(0)=0x02;
+ Req.byte(1)=0x27;
+ Req.byte(2)=0x01;// level 1
+ output(Req);
+ testWaitForTimeout(100);
+ Response_flag=0;
+}
+void send_req_Caluc_Key()
+{
+ Response_flag=1;
+ Req.dlc=8;
+ Req.byte(0)=0x06;
+ Req.byte(1)=0x27;
+ Req.byte(2)=0x02;// level 1
+ Req.byte(3)=Resp_arr[3];
+ Req.byte(4)=Resp_arr[4];
+ Req.byte(5)=Resp_arr[5];
+ Req.byte(6)=Resp_arr[6];
+ output(Req);
+ testWaitForTimeout(100);
+ Response_flag=0;
+}
+void send_req()
+{
+ Response_flag=1;
+ Req.dlc=8;
+ Req.byte(0)=0x02;
+ Req.byte(1)=0x10;
+ Req.byte(2)=0x03;
+ output(Req); 
+ testWaitForTimeout(100);
+ Response_flag=0;
+}
+void vaildate()
+{
+  if((Resp_arr[0]==0x06)&&(Resp_arr[1]==0x50)&&(Resp_arr[2]==0x03)&&(Resp_arr[3]==0x00)
+    &&(Resp_arr[4]==0x32)&&(Resp_arr[5]==0x01)&&(Resp_arr[6]==0xF4))
+  {
+    testStepPass(""," session changed to extended session");
+  }
+  else
+  {
+    testStepFail(""," session not changed to extended session");
+  }
+}
+
+void vaildate_seed_req()
+{
+  if((Resp_arr[1]==0x67)&&(Resp_arr[2]==0x01))
+  {
+    testStepPass(""," Seed response sucessful seed value %x %x %x %x",Resp_arr[3],Resp_arr[4],Resp_arr[5],Resp_arr[6]);
+    
+  }
+  else
+  {
+    testStepFail(""," Seed response fail");
+  }
+}
+void vaildate_Key_req()
+{
+  if((Resp_arr[1]==0x67)&&(Resp_arr[2]==0x02))
+  {
+    testStepPass(""," security Accessed ");
+    
+  }
+  else
+  {
+    testStepFail(""," Security denaied");
+  }
+}
+
+on message 0x201
+{
+  if(Response_flag==1)
+  {
+  Resp_arr[0]=this.byte(0);
+  Resp_arr[1]=this.byte(1);
+  Resp_arr[2]=this.byte(2);
+  Resp_arr[3]=this.byte(3);
+  Resp_arr[4]=this.byte(4);
+  Resp_arr[5]=this.byte(5);
+  Resp_arr[6]=this.byte(6);
+  Resp_arr[7]=this.byte(7);
+  }
+}

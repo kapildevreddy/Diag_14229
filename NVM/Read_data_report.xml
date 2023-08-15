@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2023-08-03 18:01:47" timestamp="   2.640000" verdicts="2_basic">
+  <violation timestamp="   2.640000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <verdict time="2023-08-03 18:01:47" timestamp="   2.640000" endtime="2023-08-03 18:01:47" endtimestamp="   2.640000" result="pass" />
+  <title>Read_data</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>Lenovo</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.ISO11783.J1939.LIN.MOST.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Automotive\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Read_data</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Automotive\Configuration_ECU\NVM\Read_data.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2023-08-03, 18:01:36</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-54LC03E</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module J1939TestServiceLibraryNL</name>
+      <description>J1939 Test Service Library for CANoe, Version 9.0.86, C:\Program Files\Vector CANoe 9.0\Exec32\J1939TestServiceLibraryNL.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="b0b5272a6174dae0ae9028fcab0c9521" version="1"-->

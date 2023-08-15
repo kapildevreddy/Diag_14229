@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2021-07-11 12:04:08" timestamp="   3.520000" verdicts="2_basic">
+  <violation timestamp="   3.520000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2021-07-11 12:04:08" timestamp="   3.520000">
+    <violation timestamp="   3.520000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="   3.620000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="   3.720000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="   3.720000" level="0" type="user" ident="" result="pass"> session changed to extended session</teststep>
+    <verdict time="2021-07-11 12:04:08" timestamp="   3.720000" endtime="2021-07-11 12:04:08" endtimestamp="   3.720000" result="pass" />
+    <title>Req_diag</title>
+  </testcase>
+  <testcase starttime="2021-07-11 12:04:08" timestamp="   3.720000">
+    <violation timestamp="   3.720000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="   3.820000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="   3.820000" level="0" type="user" ident="" result="pass"> Seed response sucessful seed value 7b 17 e ff</teststep>
+    <teststep timestamp="   3.920000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="   3.920000" level="0" type="user" ident="" result="pass"> security Accessed </teststep>
+    <verdict time="2021-07-11 12:04:08" timestamp="   3.920000" endtime="2021-07-11 12:04:08" endtimestamp="   3.920000" result="pass" />
+    <title>Security_L1_Access</title>
+  </testcase>
+  <verdict time="2021-07-11 12:04:08" timestamp="   3.920000" endtime="2021-07-11 12:04:08" endtimestamp="   3.920000" result="pass" />
+  <title>TEST_session</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>kapil</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.LIN.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Configuration_ECU\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>TEST_session</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Configuration_ECU\TEST_session.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2020-09-19, 16:26:40</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-Q1UTACG</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="d46304ba2af99d87e3f5b40a7ab9949a" version="1"-->

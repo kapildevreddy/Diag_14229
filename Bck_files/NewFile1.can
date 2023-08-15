@@ -1,0 +1,24 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+  byte val;
+}
+
+testcase tst()
+{
+
+}
+
+on envVar Test1
+{ 
+  val= getValue();
+}
+
+on sysvar_update test2::tst
+{
+}

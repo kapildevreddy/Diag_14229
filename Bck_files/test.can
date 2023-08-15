@@ -1,0 +1,49 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+ message 0x200 Req_msg;
+// message 0x101 Resp_msg;
+ byte Resp[8];
+}
+void Req_desc()
+{
+  Req_msg.dlc=8;
+  Req_msg.byte(0)=0x02;
+  Req_msg.byte(1)=0x10;
+  Req_msg.byte(2)=0x10;
+  output(Req_msg);
+}
+testcase validate()
+{
+  if((Resp[0]==0x05) &&(Resp[1]==0x50)&& (Resp[2]==0x03))
+  {
+    testStepPass("","pass-%x %x %x",Resp[0],Resp[1],Resp[2]);
+  }
+  else
+  {
+    testStepFail("","fail-%x %x %x %x ",Resp[0],Resp[1],Resp[2],Resp[3]);
+  }
+}
+
+MainTest()
+{
+ Req_desc(); 
+  testWaitForTimeout(100);
+  validate();
+}
+
+on message 0x201
+{
+ Resp[0]= this.byte(0);
+ Resp[1]= this.byte(1);
+ Resp[2]= this.byte(2);
+  Resp[3]= this.byte(3);
+}
+
+
+

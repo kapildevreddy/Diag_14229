@@ -1,0 +1,12 @@
+[NStatePersistence]
+Signature=VectorStatePersistence
+[VGlobalMeasurementIndex]
+mMeasurementIndex=546
+[VTestConfigurationConfigData]
+Diag_Tet_NextTestRun=1
+Test_Configuration_1_NextTestRun=1
+Test_Configuration_2_NextTestRun=1
+[VTestExecutable]
+Diag_Tet_LastReportFile=..\
+Test_Configuration_1_LastReportFile=..\
+Test_Configuration_2_LastReportFile=..\

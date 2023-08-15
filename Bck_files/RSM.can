@@ -1,0 +1,20 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+  
+}
+
+ON envVar env_ACC_Status
+{
+ $ACC_Status = getvalue(env_ACC_Status);
+ // $ACC_Status = @env_ACC_Status;
+}
+ON sysvar_update ACC::ACC_Status
+{
+ $ACC_Status = @ACC::ACC_Status;
+}

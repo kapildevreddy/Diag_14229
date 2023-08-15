@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2023-08-02 21:31:45" timestamp="  15.950000" verdicts="2_basic">
+  <violation timestamp="  15.950000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2023-08-02 21:31:45" timestamp="  15.950000">
+    <violation timestamp="  15.950000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  16.050000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  16.050000" level="0" type="user" ident="" result="pass">extended session pass 6 50 3 0 32 1 f4</teststep>
+    <verdict time="2023-08-02 21:31:45" timestamp="  16.050000" endtime="2023-08-02 21:31:45" endtimestamp="  16.050000" result="pass" />
+    <title>Uds_service10_Extended_session</title>
+  </testcase>
+  <testcase starttime="2023-08-02 21:31:45" timestamp="  16.050000">
+    <violation timestamp="  16.050000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  16.150000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  16.150000" level="0" type="user" ident="" result="pass"> Active session 3 response  4 62 f1 86 3 </teststep>
+    <verdict time="2023-08-02 21:31:46" timestamp="  16.150000" endtime="2023-08-02 21:31:46" endtimestamp="  16.150000" result="pass" />
+    <title>Uds_service22_DID</title>
+  </testcase>
+  <testcase starttime="2023-08-02 21:31:46" timestamp="  16.150000">
+    <violation timestamp="  16.150000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  16.250000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  16.250000" level="0" type="user" ident="" result="pass">programming session pass 6 50 2 0 32 1 f4</teststep>
+    <verdict time="2023-08-02 21:31:46" timestamp="  16.250000" endtime="2023-08-02 21:31:46" endtimestamp="  16.250000" result="pass" />
+    <title>Uds_service10_programming_session</title>
+  </testcase>
+  <testcase starttime="2023-08-02 21:31:46" timestamp="  16.250000">
+    <violation timestamp="  16.250000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  16.350000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  16.350000" level="0" type="user" ident="" result="pass"> Active session 2 response  4 62 f1 86 2 </teststep>
+    <verdict time="2023-08-02 21:31:46" timestamp="  16.350000" endtime="2023-08-02 21:31:46" endtimestamp="  16.350000" result="pass" />
+    <title>Uds_service22_DID</title>
+  </testcase>
+  <testcase starttime="2023-08-02 21:31:46" timestamp="  16.350000">
+    <violation timestamp="  16.350000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  16.450000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  16.450000" level="0" type="user" ident="" result="pass">Default session pass 6 50 1 0 32 1 f4</teststep>
+    <verdict time="2023-08-02 21:31:46" timestamp="  16.450000" endtime="2023-08-02 21:31:46" endtimestamp="  16.450000" result="pass" />
+    <title>Uds_service10_default_session</title>
+  </testcase>
+  <testcase starttime="2023-08-02 21:31:46" timestamp="  16.450000">
+    <violation timestamp="  16.450000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  16.550000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  16.550000" level="0" type="user" ident="" result="pass"> Active session 1 response  4 62 f1 86 1 </teststep>
+    <verdict time="2023-08-02 21:31:46" timestamp="  16.550000" endtime="2023-08-02 21:31:46" endtimestamp="  16.550000" result="pass" />
+    <title>Uds_service22_DID</title>
+  </testcase>
+  <verdict time="2023-08-02 21:31:46" timestamp="  16.550000" endtime="2023-08-02 21:31:46" endtimestamp="  16.550000" result="pass" />
+  <title>Uds_service_22_F186_read_active_session</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>Lenovo</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.ISO11783.J1939.LIN.MOST.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Automotive\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Uds_service_22_F186_read_active_session</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Automotive\Configuration_ECU\Test_Env\Uds_service_22\Uds_service_22_F186_read_active_session.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2021-07-24, 21:03:46</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-54LC03E</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module J1939TestServiceLibraryNL</name>
+      <description>J1939 Test Service Library for CANoe, Version 9.0.86, C:\Program Files\Vector CANoe 9.0\Exec32\J1939TestServiceLibraryNL.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="d4d7c4cbb4a14edcd5d55a5535c3559f" version="1"-->

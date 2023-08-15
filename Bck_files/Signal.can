@@ -1,0 +1,15 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+  
+}
+
+on sysvar_update value::value1
+{
+  $ACC_Status = @value::value1;
+}

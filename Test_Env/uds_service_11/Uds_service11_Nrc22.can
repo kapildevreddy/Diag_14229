@@ -3,16 +3,17 @@ includes
 {
   
   #include "..\Include\Diag_message_declaration.cin"
+   #include "..\Include\Diag_security_access.cin"
 }
 
 variables
 {
 
 }
-void Service_request_11_data(byte sub)
+void Service_request_10_data(byte sub)
 {
  Diag_req.byte(0)= 0x02;
- Diag_req.byte(1)= 0x11;
+ Diag_req.byte(1)= 0x10;
  Diag_req.byte(2)= sub;
  output(Diag_req);
 }
@@ -25,11 +26,11 @@ testcase Uds_service_nrc22()
   //$Speed =10;
   setSignal(ENGmsg::Speed,10);  // Speed more than 5kmph
   testWaitForTimeout(3000);
-  Service_request_11_data(0x01);
+  Service_request_10_data(0x01);
   test_flag=1;
   testWaitForTimeout(100);
   
-  if((Response[0]==0x03)&& (Response[1]==0x7F)&&(Response[2]==0x11)&&(Response[3]==0x22))
+  if((Response[0]==0x03)&& (Response[1]==0x7F)&&(Response[2]==0x10)&&(Response[3]==0x22))
   {
     teststep("","Set Speed more than 5 km ,i.e 10");
     testStepPass("","conditionsNotCorrect test pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3]);
@@ -41,11 +42,13 @@ testcase Uds_service_nrc22()
   }
    
    setSignal(ENGmsg::Speed,0);  // reset speed
+  testWaitForTimeout(500);
 }
 
 
 
 MainTest()
 {
+  security_unlock();
   Uds_service_nrc22();
 }

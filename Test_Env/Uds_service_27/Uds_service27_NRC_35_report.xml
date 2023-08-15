@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2022-11-29 21:42:16" timestamp=" 351.450000" verdicts="2_basic">
+  <violation timestamp=" 351.450000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2022-11-29 21:42:16" timestamp=" 351.450000">
+    <violation timestamp=" 351.450000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp=" 351.550000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 351.550000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp=" 351.650000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 351.650000" level="0" type="user" ident="" result="pass">requestSeed sent successfully </teststep>
+    <teststep timestamp=" 351.750000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 351.750000" level="0" type="user" ident="" result="pass">NRC 35 </teststep>
+    <verdict time="2022-11-29 21:42:17" timestamp=" 351.750000" endtime="2022-11-29 21:42:17" endtimestamp=" 351.750000" result="pass" />
+    <title>security_unlock</title>
+  </testcase>
+  <verdict time="2022-11-29 21:42:17" timestamp=" 351.750000" endtime="2022-11-29 21:42:17" endtimestamp=" 351.750000" result="pass" />
+  <title>Uds_service27_NRC_35</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>kapil</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.LIN.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Uds_service27_NRC_35</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Configuration_ECU\Test_Env\Uds_service_27\Uds_service27_NRC_35.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2021-07-18, 17:54:46</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-Q1UTACG</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="6398d68a5cbbc12f25176d7902e9d7e7" version="1"-->

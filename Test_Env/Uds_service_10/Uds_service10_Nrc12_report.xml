@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2023-08-02 21:16:49" timestamp="  52.470000" verdicts="2_basic">
+  <violation timestamp="  52.470000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2023-08-02 21:16:49" timestamp="  52.470000">
+    <violation timestamp="  52.470000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  52.570000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  52.570000" level="0" type="user" ident="" result="pass"> Subfunction notsupported test pass 3 7f 10 12 45462b0 1c 34</teststep>
+    <verdict time="2023-08-02 21:16:49" timestamp="  52.570000" endtime="2023-08-02 21:16:49" endtimestamp="  52.570000" result="pass" />
+    <title>Uds_service_nrc12</title>
+  </testcase>
+  <verdict time="2023-08-02 21:16:49" timestamp="  52.570000" endtime="2023-08-02 21:16:49" endtimestamp="  52.570000" result="pass" />
+  <title>Test_NRC_12</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>Lenovo</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.ISO11783.J1939.LIN.MOST.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Automotive\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Test_NRC_12</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Automotive\Configuration_ECU\Test_Env\Uds_service_10\Uds_service10_Nrc12.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2021-07-18, 12:07:59</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-54LC03E</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module J1939TestServiceLibraryNL</name>
+      <description>J1939 Test Service Library for CANoe, Version 9.0.86, C:\Program Files\Vector CANoe 9.0\Exec32\J1939TestServiceLibraryNL.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="c3a9299ab7ef0cf756f2eb9dc1db21de" version="1"-->

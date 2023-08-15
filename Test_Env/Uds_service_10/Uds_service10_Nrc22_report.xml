@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2023-08-02 21:17:28" timestamp="  83.160000" verdicts="2_basic">
+  <violation timestamp="  83.160000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2023-08-02 21:17:28" timestamp="  83.160000">
+    <violation timestamp="  83.160000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  83.160000" level="2" type="user" ident="Set signal value" result="na">Signal: &apos;Signal:CAN1/TST/ENGmsg/Speed&apos;.  Value: 10 </teststep>
+    <teststep timestamp="  86.160000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=3000ms (max=3000ms)</teststep>
+    <teststep timestamp="  86.260000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  86.260000" level="0" type="user" ident="" result="na">Set Speed more than 5 km ,i.e 10</teststep>
+    <teststep timestamp="  86.260000" level="0" type="user" ident="" result="pass">conditionsNotCorrect test pass 3 7f 11 22 2b 34 28</teststep>
+    <teststep timestamp="  86.260000" level="2" type="user" ident="Set signal value" result="na">Signal: &apos;Signal:CAN1/TST/ENGmsg/Speed&apos;.  Value: 0 </teststep>
+    <verdict time="2023-08-02 21:17:31" timestamp="  86.260000" endtime="2023-08-02 21:17:31" endtimestamp="  86.260000" result="pass" />
+    <title>Uds_service_nrc22</title>
+  </testcase>
+  <verdict time="2023-08-02 21:17:31" timestamp="  86.260000" endtime="2023-08-02 21:17:31" endtimestamp="  86.260000" result="pass" />
+  <title>Test_NRC_22</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>Lenovo</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.ISO11783.J1939.LIN.MOST.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Automotive\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Test_NRC_22</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Automotive\Configuration_ECU\Test_Env\Uds_service_10\Uds_service10_Nrc22.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2023-08-01, 22:00:35</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-54LC03E</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module J1939TestServiceLibraryNL</name>
+      <description>J1939 Test Service Library for CANoe, Version 9.0.86, C:\Program Files\Vector CANoe 9.0\Exec32\J1939TestServiceLibraryNL.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="5434974b9c07c13c6088d2f9f653584d" version="1"-->

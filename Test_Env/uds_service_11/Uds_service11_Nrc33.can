@@ -1,0 +1,69 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "..\Include\Diag_message_declaration.cin"
+
+}
+
+variables
+{
+
+}
+void Service_request_11_data(byte sub)
+{
+ Diag_req.byte(0)= 0x01;
+ Diag_req.byte(1)= 0x11;
+ Diag_req.byte(2)= sub;
+ output(Diag_req);
+}
+
+void Service_request_10_data(byte sub)
+{
+ Diag_req.byte(0)= 0x02;
+ Diag_req.byte(1)= 0x10;
+ Diag_req.byte(2)= sub;
+ output(Diag_req);
+}
+
+testcase Uds_service_nrc33()
+{
+  Service_request_11_data(0x01);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x03)&& (Response[1]==0x7F)&&(Response[2]==0x11)&&(Response[3]==0x33))
+  {
+    testStepPass(""," securityAccessDenied test pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3]);
+  }
+  else
+  {
+    testStepFail("","securityAccessDenied test fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+testcase Uds_service10_default_session()
+{
+  Service_request_10_data(0x01);
+  test_flag=1;
+  testWaitForTimeout(100);
+  
+  if((Response[0]==0x06)&& (Response[1]==0x50)&&(Response[2]==0x01)&&(Response[3]==0x00)&&(Response[4]==0x32)&&(Response[5]==0x01)&&(Response[6]==0xF4))
+  {
+    testStepPass("","Default session pass %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  else
+  {
+    testStepFail("","Default session fail %x %x %x %x %x %x %x",Response[0],Response[1],Response[2],Response[3],Response[4],Response[5],Response[6]);
+  }
+  
+}
+
+
+
+MainTest()
+{
+  setSignal(ENGmsg::Speed,0);  // reset speed
+  Uds_service10_default_session();
+  Uds_service_nrc33();
+}

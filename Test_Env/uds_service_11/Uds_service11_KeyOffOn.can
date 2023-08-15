@@ -1,0 +1,17 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "..\Include\Diag_security_access.cin"
+}
+
+variables
+{
+
+}
+
+
+MainTest()
+{
+  security_unlock();
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2023-08-02 21:22:54" timestamp="  17.160000" verdicts="2_basic">
+  <violation timestamp="  17.160000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2023-08-02 21:22:54" timestamp="  17.160000">
+    <violation timestamp="  17.160000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  17.260000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  17.260000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp="  17.360000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  17.360000" level="0" type="user" ident="" result="pass">requestSeed sent successfully </teststep>
+    <teststep timestamp="  17.460000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  17.460000" level="0" type="user" ident="" result="pass">security unlocked successfully  </teststep>
+    <verdict time="2023-08-02 21:22:54" timestamp="  17.460000" endtime="2023-08-02 21:22:54" endtimestamp="  17.460000" result="pass" />
+    <title>security_unlock</title>
+  </testcase>
+  <testcase starttime="2023-08-02 21:22:54" timestamp="  17.460000">
+    <violation timestamp="  17.460000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="  17.560000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp="  17.560000" level="0" type="user" ident="" result="pass">Hard Reset pass 3 51 1 6dd7d5fb 0 86ef4c4 6dd7d5fb</teststep>
+    <verdict time="2023-08-02 21:22:54" timestamp="  17.560000" endtime="2023-08-02 21:22:54" endtimestamp="  17.560000" result="pass" />
+    <title>Uds_service11_hardreset</title>
+  </testcase>
+  <verdict time="2023-08-02 21:22:54" timestamp="  17.560000" endtime="2023-08-02 21:22:54" endtimestamp="  17.560000" result="pass" />
+  <title>Uds_service11_HardReset</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>Lenovo</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.ISO11783.J1939.LIN.MOST.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Automotive\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Uds_service11_HardReset</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Automotive\Configuration_ECU\Test_Env\uds_service_11\Uds_service11_HardReset.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2023-08-01, 21:51:28</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-54LC03E</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module J1939TestServiceLibraryNL</name>
+      <description>J1939 Test Service Library for CANoe, Version 9.0.86, C:\Program Files\Vector CANoe 9.0\Exec32\J1939TestServiceLibraryNL.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="8bde48929c628c5f662a0e1f7f8869a8" version="1"-->

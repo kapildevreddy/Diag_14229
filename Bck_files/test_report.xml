@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2019-06-02 12:07:00" timestamp="   2.090000" verdicts="2_basic">
+  <violation timestamp="   2.090000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2019-06-02 12:07:00" timestamp="   2.190000">
+    <violation timestamp="   2.190000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp="   2.190000" level="0" type="user" ident="" result="fail">fail-3 7f 10 12 </teststep>
+    <verdict time="2019-06-02 12:07:00" timestamp="   2.190000" endtime="2019-06-02 12:07:00" endtimestamp="   2.190000" result="fail" />
+    <title>validate</title>
+  </testcase>
+  <verdict time="2019-06-02 12:07:00" timestamp="   2.190000" endtime="2019-06-02 12:07:00" endtimestamp="   2.190000" result="fail" />
+  <title>test</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>kapil</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.LIN.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Configuration_ECU\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>test</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Configuration_ECU\test.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2019-06-02, 12:06:48</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-Q1UTACG</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="692ee950207809ffa9dcdcbd6d03679d" version="1"-->

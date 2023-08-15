@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2022-11-29 21:39:30" timestamp=" 217.470000" verdicts="2_basic">
+  <violation timestamp=" 217.470000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2022-11-29 21:39:30" timestamp=" 217.470000">
+    <violation timestamp=" 217.470000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp=" 217.570000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 217.570000" level="0" type="user" ident="" result="pass"> Invalid length test pass 3 7f 22 13 3b02188 4c 34</teststep>
+    <verdict time="2022-11-29 21:39:30" timestamp=" 217.570000" endtime="2022-11-29 21:39:30" endtimestamp=" 217.570000" result="pass" />
+    <title>Uds_service_nrc13</title>
+  </testcase>
+  <verdict time="2022-11-29 21:39:30" timestamp=" 217.570000" endtime="2022-11-29 21:39:30" endtimestamp=" 217.570000" result="pass" />
+  <title>Uds_service10_Nrc13</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>kapil</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.LIN.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Uds_service10_Nrc13</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Configuration_ECU\Test_Env\Uds_service_22\Uds_service10_Nrc13.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2021-07-24, 21:09:06</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-Q1UTACG</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="f02487e04b9288ab4019c2d643b8f582" version="1"-->

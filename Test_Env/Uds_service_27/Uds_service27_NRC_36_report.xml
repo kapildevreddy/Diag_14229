@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2022-11-29 21:42:23" timestamp=" 355.190000" verdicts="2_basic">
+  <violation timestamp=" 355.190000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2022-11-29 21:42:23" timestamp=" 355.190000">
+    <violation timestamp=" 355.190000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp=" 355.290000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.290000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp=" 355.390000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.390000" level="0" type="user" ident="" result="pass">requestSeed sent successfully </teststep>
+    <teststep timestamp=" 355.490000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.590000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.590000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp=" 355.690000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.690000" level="0" type="user" ident="" result="pass">requestSeed sent successfully </teststep>
+    <teststep timestamp=" 355.790000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.890000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.890000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp=" 355.990000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 355.990000" level="0" type="user" ident="" result="pass">requestSeed sent successfully </teststep>
+    <teststep timestamp=" 356.090000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 356.190000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 356.190000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp=" 356.290000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 356.290000" level="0" type="user" ident="" result="pass">requestSeed sent successfully </teststep>
+    <teststep timestamp=" 356.390000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 356.490000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 356.490000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp=" 356.590000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 356.590000" level="0" type="user" ident="" result="pass">requestSeed sent successfully </teststep>
+    <teststep timestamp=" 356.690000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 356.690000" level="0" type="user" ident="" result="pass">NRC 36 </teststep>
+    <verdict time="2022-11-29 21:42:25" timestamp=" 356.690000" endtime="2022-11-29 21:42:25" endtimestamp=" 356.690000" result="pass" />
+    <title>security_unlock</title>
+  </testcase>
+  <verdict time="2022-11-29 21:42:25" timestamp=" 356.690000" endtime="2022-11-29 21:42:25" endtimestamp=" 356.690000" result="pass" />
+  <title>Uds_service27_NRC_36</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>kapil</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.LIN.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Uds_service27_NRC_36</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Configuration_ECU\Test_Env\Uds_service_27\Uds_service27_NRC_36.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2021-07-18, 19:18:38</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-Q1UTACG</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="77b364fffa32257b0d3beacc1f0e3be4" version="1"-->

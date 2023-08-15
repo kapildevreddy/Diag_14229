@@ -74,7 +74,6 @@ variables
   byte service_22 = 0x22;
   byte service_27 = 0x27;
   byte service_28 = 0x28;
-  byte service_2E = 0x2E;
   byte service_31 = 0x31;
   byte service_3E = 0x3E; 
   byte low_voltage_mask =0x00;
@@ -142,7 +141,7 @@ void service_11_pos(byte subfun_11)// 11 service
   Diag_Resp.byte(3)= 0x00;//Powerdown time[00-FE] Not confugured yet
   output(Diag_Resp);
 }
-void service_28_pos(byte sub_fun) //service 28
+void service_28_pos(byte sub_fun)
 {
   Diag_Resp.dlc =0x08;
   Diag_Resp.byte(0)= 0x03;
@@ -167,15 +166,6 @@ void service_28_pos(byte sub_fun) //service 28
   {
   }
    output(Diag_Resp);
-}
-void service_2E_pos(byte H_WID,byte L_WID)// 2E service
-{
-  Diag_Resp.dlc =0x08;
-  Diag_Resp.byte(0)= 0x03;
-  Diag_Resp.byte(1)= 0x6E;
-  Diag_Resp.byte(2)= H_WID;
-  Diag_Resp.byte(3)= L_WID;
-  output(Diag_Resp);
 }
 void service_3E_pos()// 3E service
 {
@@ -205,7 +195,7 @@ byte service_27_pos(byte sub1,byte sub2,byte sub3,byte sub4)
   }
   return ret;
 }
-byte service_22_pos(word DID) //service 22
+byte service_22_pos(word DID)
 {
   switch(DID)
   {
@@ -559,56 +549,6 @@ void init_data()
   for(i=0;i<8;i++)
     Diag_Resp.byte(i)= 0x0;
 }
-char convert_data(byte data)
-{
-  char ret;
-  if (data >= 10 && data <= 15)
-  {
-    ret = data + 87;
-  }
-  else 
-  {
-    ret = data + 48;
-  }
-  
-  return ret;
-}
-byte Write_data_WID(byte len,byte H_Wid,byte L_Wid,byte Data1,byte Data2,byte Data3,byte Data4)
-{
-  byte Ret;
-  word WID;
-  char wid_buf[7];
-  char wid_nib;
-  char Input_buf[8];
-  char buffer[8];
-  int i;
- 
-  WID = H_Wid << 8;
-  WID = WID |L_Wid;
-  len=len-3; //data = len - (sid + wid)
-  Input_buf[0] = Data1;
-  Input_buf[1] = Data2;
-  Input_buf[2] = Data3;
-  Input_buf[3] = Data4;
-  
-wid_buf[0] = '0';
-wid_buf[1] = 'x';
-wid_buf[2] = convert_data ((H_Wid & 0xf0)>>4);
-wid_buf[3] = convert_data(H_Wid &0x0f);
-wid_buf[4] = convert_data((L_Wid&0xf0)>>4);
-wid_buf[5] = convert_data(L_Wid&0x0f);
-wid_buf[6] = '\0';
-  
-  for(i=0;i<len;i++)
-  {
-    buffer[i]= Input_buf[i];
-  }
-  setFilePath("D:\\Automotive\\Configuration_ECU\\NVM",2);
-  writeProfileString("Parameter",wid_buf,buffer,"Datafile.ini");
-  write("Wrting Data to NVM Test %s",wid_buf);
-  Ret= E_OK;
-  return Ret;
-}
 byte Active_session_check_for_SID(byte service)
 {
    byte Ret;
@@ -652,7 +592,6 @@ byte Active_session_check_for_SID(byte service)
       if (Active_session==(0x03))
       {
         Ret=E_OK;
-       // write("Active session 2e is 3");
       }
       else
       {
@@ -716,7 +655,7 @@ byte Active_session_check_for_Subfunction(byte service, byte subfuction)
   return Ret;
 }
 
-byte Service_subfun_check(byte service,byte sub) // NRC 12 checker
+byte Service_subfun_check(byte service,byte sub)
 {
   byte Ret;
   Switch(service)
@@ -730,18 +669,6 @@ byte Service_subfun_check(byte service,byte sub) // NRC 12 checker
       else
       {
        Ret = E_NOT_OK;
-      }
-      break;
-    }
-    case 0x11:
-    {
-      if((sub==0x01)||(sub==0x02)||(sub==0x03))
-      {
-        Ret=E_OK;
-      }
-      else
-      {
-        Ret = E_NOT_OK;
       }
       break;
     }
@@ -759,7 +686,7 @@ byte Service_subfun_check(byte service,byte sub) // NRC 12 checker
   }
   return Ret;
 }
-byte Identifier_check(byte service,word ID) //NRC 31 Checker
+byte Identifier_check(byte service,word ID)
 {
   byte Ret;
   Switch(service)
@@ -778,7 +705,7 @@ byte Identifier_check(byte service,word ID) //NRC 31 Checker
     }
         case 0x2E:
     {
-      if((ID==0xf186)||(ID==0x1012)||(ID==0x1122)||(ID==0xF190))
+      if((ID==0xf186)||(ID==0x1012)||(ID==0x1122))
       {
         Ret=E_OK;
       }
@@ -792,7 +719,7 @@ byte Identifier_check(byte service,word ID) //NRC 31 Checker
   return Ret;
 }
 
-byte Service_lenth(byte service,byte len,byte sub) // NRC 13 checker
+byte Service_lenth(byte service,byte len,byte sub)
 {
   byte Ret;
  // write("Fishy 1");
@@ -867,79 +794,6 @@ byte Service_lenth(byte service,byte len,byte sub) // NRC 13 checker
  // write(" Ret %d\n",Ret);
   return Ret;
   
-}
-
-byte Write_data_lenth_TP_Chk(byte len_H,byte len_L,byte H_WID,byte L_WID) // NRC 13 checker for 2E
-{
-  byte Ret;
-  word WID;
-  word Len;
-  Len = ((len_H & 0x0F) <<8) | (L_WID); //3 nibble data
-  WID = H_WID;
-  WID = (WID<<8) | L_WID;
-    switch(WID)
-  {
-      case 0xF190:
-        if(Len==20)
-        {
-           Ret = E_OK;
-        }
-        else
-        {
-           Ret = E_NOT_OK;
-        }
-        break;
-     default:
-        {
-          Ret = E_NOT_OK;
-        }
-  }
-  return Ret;
-}
-byte Write_data_lenth_Chk(byte len,byte H_WID,byte L_WID) // NRC 13 checker for 2E
-{
-  byte Ret;
-  word WID;
-  WID = H_WID;
-  WID = (WID<<8) | L_WID;
-    switch(WID)
-  {
-      case 0xF190: //Vehicle Identification Number(VIN) 17 bytes + service ID + 2 bytes WID = 20
-        if(len==20)
-        {
-           Ret = E_OK;
-        }
-        else
-        {
-           Ret = E_NOT_OK;
-        }
-        break;
-     case 0xF170 : //Board part number 4 bytes + service ID + 2 bytes WID = 7
-        if(len==7)
-        {
-           Ret = E_OK;
-        }
-        else
-        {
-           Ret = E_NOT_OK;
-        }
-        break;
-     case 0xF18B  : //ECU manufacturing date yy /MM /DD + service ID + 2 bytes WID = 6
-        if(len==6)
-        {
-           Ret = E_OK;
-        }
-        else
-        {
-           Ret = E_NOT_OK;
-        }
-        break;
-     default:
-        {
-          Ret = E_NOT_OK;
-        }
-  }
-  return Ret;
 }
 on message 0x200
 {
@@ -1149,62 +1003,6 @@ on message 0x200
     else
     {
       Len_Neg(service_28);
-    }
-  }
-  else if((this.byte(1)==service_2E)&&(this.byte(0) & 0x10) != 0x10 ) //CAN 8bytes request for 2E
-  {
-    if(E_OK==Active_session_check_for_SID(service_2E)) //session checker for SID
-    {
-      if(E_OK == Write_data_lenth_Chk(this.byte(0),this.byte(2),this.byte(3)))// lenght checker for WID
-        {
-         if($Speed<speed)  //condition checker
-          {
-            Write_data_WID(this.byte(0),this.byte(2),this.byte(3),this.byte(4),this.byte(5),this.byte(6),this.byte(7));
-            service_2E_pos(this.byte(2),this.byte(3));
-          }
-          else
-          {
-            //NRC22
-            Condition_Notcorrect_Neg(service_2E);
-          }
-        }
-        else
-        {
-          //NRC13
-          Len_Neg(service_2E);
-        }
-    }
-    else
-    {
-      //NRC 7F
-      service_Not_supported_Active_session_Neg(service_2E);
-    }
-  }
-  else if((this.byte(2)==service_2E)&&(this.byte(0) & 0x10) == 0x10 ) //CAN TP request for 2E
-  {
-    if(E_OK==Active_session_check_for_SID(service_2E)) // session checker for SID
-    {
-      if(E_OK == Write_data_lenth_TP_Chk(this.byte(0),this.byte(1),this.byte(3),this.byte(4))) // lenght checker for WID
-      {
-        if($Speed<speed)  //condition checker
-         {
-         }
-        else
-         {
-         //NRC22
-          Condition_Notcorrect_Neg(service_2E);
-         }
-      }
-      else
-       {
-         //NRC13
-        Len_Neg(service_2E);
-       }
-    }
-    else
-    {
-      //NRC 7F
-       service_Not_supported_Active_session_Neg(service_2E);
     }
   }
   else if(this.byte(1) == service_31) //$31

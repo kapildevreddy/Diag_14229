@@ -1,0 +1,66 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+  // CAN ID 0x100
+  // DLC 5
+  //50 ms
+  //Data 0x01 0x02 0x03 0x04 0x05  
+  
+  message 0x150 MSG1;
+  msTimer t_MSG1;
+  byte cnt=0;
+  byte msg_cnt=0;
+  byte byte_0;
+}
+ON timer t_MSG1
+{
+  if(cnt<20)
+  {
+   Define_MSG1();
+ // cnt++;
+  settimer(t_MSG1,100);
+  }
+  else
+  {
+    cancelTimer(t_MSG1);
+  }
+ 
+}
+
+void Define_MSG1()
+{
+ MSG1.dlc =2;
+  MSG1.byte(0)= byte_0;
+  if(msg_cnt<=4)
+  {
+  MSG1.byte(1)= msg_cnt;
+ 
+  }
+  else
+  {
+    msg_cnt=0;
+     MSG1.byte(1)= msg_cnt;
+  }
+   msg_cnt++;
+  /*MSG1.byte(2)= 0x03;
+  MSG1.byte(3)= 0x04;
+  MSG1.byte(4)= 0x05;
+  MSG1.byte(5)= 0x06;
+  MSG1.byte(6)= 0x07;
+  MSG1.byte(7)= 0x08;*/  
+  output(MSG1);
+}
+
+On start
+{
+settimer(t_MSG1,0);
+}
+ON sysvar_update Byte_info::byte_0
+{
+  byte_0 = @Byte_info::byte_0;
+}

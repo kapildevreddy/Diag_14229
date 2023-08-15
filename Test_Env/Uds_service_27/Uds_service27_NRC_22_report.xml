@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2022-11-29 21:41:58" timestamp=" 339.350000" verdicts="2_basic">
+  <violation timestamp=" 339.350000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+  <testcase starttime="2022-11-29 21:41:58" timestamp=" 339.350000">
+    <violation timestamp=" 339.350000" type="warning" result="warn">This is only a DEMO variant of CANoe!</violation>
+    <teststep timestamp=" 339.450000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 339.450000" level="0" type="user" ident="" result="pass">Diag in Extended session</teststep>
+    <teststep timestamp=" 339.450000" level="2" type="user" ident="Set signal value" result="na">Signal: &apos;Signal:CAN1/TST/ENGmsg/Speed&apos;.  Value: 10 </teststep>
+    <teststep timestamp=" 342.450000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=3000ms (max=3000ms)</teststep>
+    <teststep timestamp=" 342.550000" level="1" type="auto" ident="Resume reason" result="na"> Elapsed time=100ms (max=100ms)</teststep>
+    <teststep timestamp=" 342.550000" level="0" type="user" ident="" result="pass">NRC 22 </teststep>
+    <teststep timestamp=" 342.550000" level="2" type="user" ident="Set signal value" result="na">Signal: &apos;Signal:CAN1/TST/ENGmsg/Speed&apos;.  Value: 0 </teststep>
+    <verdict time="2022-11-29 21:42:01" timestamp=" 342.550000" endtime="2022-11-29 21:42:01" endtimestamp=" 342.550000" result="pass" />
+    <title>security_unlock</title>
+  </testcase>
+  <verdict time="2022-11-29 21:42:01" timestamp=" 342.550000" endtime="2022-11-29 21:42:01" endtimestamp=" 342.550000" result="pass" />
+  <title>Uds_service27_NRC_22</title>
+  <testlogfiles>
+    <testlogfile file="" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>kapil</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.LIN.FlexRay.Ethernet 9.0.86 (SP3)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>D:\Configuration_ECU\Config\CANoe.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration Comment</name>
+      <description></description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>Uds_service27_NRC_22</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>D:\Configuration_ECU\Test_Env\Uds_service_27\Uds_service27_NRC_22.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2021-07-18, 17:39:55</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>DESKTOP-Q1UTACG</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.16.32 (Jun  3 2016 09:44:38) , C:\Program Files\Vector CANoe 9.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+</testmodule>
+<!--footprint="a1178f633df4b9193eb427cfa869885e" version="1"-->

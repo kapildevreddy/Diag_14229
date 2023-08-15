@@ -1,0 +1,13 @@
+
+Network Node Questions:
+1)Write CAPL script for Tx messages with Cycle time ?
+2)Write CAPL script for Tx messages alive counter ?
+3)Write CAPL script for Tx messages with CRC ?
+4)Write CAPL script for Tx messages with limited times?
+5)Write CAPL script for Tx signal update from panel?
+6)Configure Tx messages  from DBC ,without CAPL script ?
+
+Test Node Questions:
+1)Write a test script for Diag service $10,$19,$27 ?
+2)Write a test script for $2E service to write more than 8 bytes ?
+3)Write a test script for $22 service to read mare than 8 bytes data ?
